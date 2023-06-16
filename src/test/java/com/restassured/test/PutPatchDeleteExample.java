@@ -6,6 +6,7 @@ import io.restassured.*;
 import io.restassured.http.ContentType;
 import static io.restassured.RestAssured.*;
 
+@SuppressWarnings("unchecked")
 public class PutPatchDeleteExample {
 	
 	

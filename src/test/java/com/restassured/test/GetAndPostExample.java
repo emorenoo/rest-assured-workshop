@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+
 public class GetAndPostExample {
 	
 	@Test
@@ -21,7 +22,7 @@ public class GetAndPostExample {
 			.body("data.first_name", hasItems("George", "Rachel"))
 		.log().all();
 		
-	};
+	}
 	
 	
 	@Test
@@ -36,7 +37,7 @@ public class GetAndPostExample {
 			.body("abilities.ability.name", hasItem("limber"))
 		.log().all();
 		
-	};
+	}
 
 	@Test
 	public void testPost() {

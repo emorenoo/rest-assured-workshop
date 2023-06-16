@@ -1,12 +1,12 @@
 package com.restassured.test;
 
-import org.testng.annotations.Test;
-import static org.hamcrest.Matchers.*;
-
 import io.qameta.allure.*;
 import io.restassured.RestAssured;
+import org.testng.annotations.Test;
 
-public class RestAssureAuthTest extends BaseClassAuth{
+import static org.hamcrest.Matchers.equalTo;
+
+public class RestAssureAuthTest extends BaseClassAuth {
 	
 	@Test(priority = 0, description="Valid Autentication Scenario with valid username and password.")
 	@Severity(SeverityLevel.BLOCKER)
@@ -14,16 +14,11 @@ public class RestAssureAuthTest extends BaseClassAuth{
 	@Story("Get autentication token")
 	@Step("Petition get to autentication")
 	public void test1() {
-			
 		RestAssured.given()
-			.get()
-			.then()
-			.statusCode(200)
-			.body("authenticated", equalTo(true));
-			
+				.get()
+				.then()
+				.statusCode(200)
+				.body("authenticated", equalTo(true));
+
 	}
-
-		
-	
-
 }
