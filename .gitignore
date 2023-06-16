@@ -25,3 +25,8 @@ pom.xml.next
 #Local Allure files
 .allure/
 allure-results/*.json
+
+#ajcore
+*.txt
+ajcore*
+ajcore.20230222.175802.125.txt
