@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.*;
 import io.qameta.allure.*;
 import io.restassured.RestAssured;
 
-@SuppressWarnings("DefaultAnnotationParam")
 public class RestAssureAuthTest extends BaseClassAuth{
 	
 	@Test(priority = 0, description="Valid Autentication Scenario with valid username and password.")
