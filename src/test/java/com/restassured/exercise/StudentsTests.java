@@ -15,7 +15,7 @@ public class StudentsTests extends BaseClassAuth{
 	    
 		JSONObject request = new JSONObject();
 
-		request.put("name", "Estereo");
+		request.put("name", "JaimeA");
 		request.put("lastname", "Perea");
 		ArrayList<String> interests = new ArrayList<>();
 		interests.add("Boxing");
@@ -42,7 +42,7 @@ public class StudentsTests extends BaseClassAuth{
 		.when()
 			.get("/classes/Students")
 		.then()
-			.body("results.name",hasItem("Estereo"))
+			.body("results.name",hasItem("JaimeA"))
 			.body("results.lastname",hasItem("Perea"))
 		.log().all();
 	}	

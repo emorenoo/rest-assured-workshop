@@ -9,14 +9,13 @@ import static org.hamcrest.Matchers.*;
 
 public class StudentsCommentsTests extends BaseClassAuth{
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testAddComments() {
 
         JSONObject request = new JSONObject();
 
         request.put("studentId", "9mAYjrEAyo");
-		request.put("comment", "TestOneOneX");
+		request.put("comment", "TestOneOneXER");
 
         urlBase();
         given()
@@ -37,7 +36,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         .when()
             .get("/classes/Comments")
         .then()
-            .body("results.comment", hasItem("TestOneOneX"))
+            .body("results.comment", hasItem("TestOneOneXER"))
         .log().all();
     }
 
@@ -61,7 +60,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         given()
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
-            .delete("/classes/Comments/fBz0jeCHzW")
+            .delete("/classes/Comments/7dMklmsKuP")
         .then()
             .statusCode(200)
         .log().all();
@@ -80,7 +79,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         JSONObject request = new JSONObject();
 
         request.put("studentId", "9mAYjrEAyo");
-        request.put("comment", "TestOneYYy");
+        request.put("comment", "TestOneYYyER");
 
         RestAssured.baseURI = "https://parseapi.back4app.com";
         given()
@@ -100,7 +99,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
             .get("/classes/Students/9mAYjrEAyo")
         .then()
             .body("$", hasKey("comments"))
-            .body("comments", hasItem("TestOneYYy"))
+            .body("comments", hasItem("TestOneYYyER"))
         .log().all();
     }
 }
