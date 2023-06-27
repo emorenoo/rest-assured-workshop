@@ -8,14 +8,13 @@ import io.restassured.http.ContentType;
 
 public class StudentsSkillsTests extends BaseClassAuth{
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testAddAbility() {
 
 		JSONObject request = new JSONObject();
 
 		request.put("studentId", "P3bisg6e2n");
-		request.put("skillId", "Z3NyhPqOQT");
+		request.put("skillId", "MGH19YBd3i");
 
 		urlBase();
 		given()
