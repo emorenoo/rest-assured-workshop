@@ -11,7 +11,7 @@ public class SkillsTests extends BaseClassAuth{
 
 		urlBase();
 		given()
-			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
+			.headers("X-Parse-Application-Id",System.getenv("ID"),"X-Parse-REST-API-Key",System.getenv("KEY"))
 			.get("/classes/Skills")
 		.then()
 			.statusCode(200)
@@ -24,7 +24,7 @@ public class SkillsTests extends BaseClassAuth{
 
 		urlBase();
 		given()
-			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
+			.headers("X-Parse-Application-Id",System.getenv("ID"),"X-Parse-REST-API-Key",System.getenv("KEY"))
 		.when()
 			.get("/classes/Skills/SfBT3mThiu")
 		.then()
@@ -40,7 +40,7 @@ public class SkillsTests extends BaseClassAuth{
 
 		urlBase();
 		given()
-			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
+			.headers("X-Parse-Application-Id",System.getenv("ID"),"X-Parse-REST-API-Key",System.getenv("KEY"))
 		.when()
 			.delete("/classes/Skills/SfBT3mThiu")
 		.then()
