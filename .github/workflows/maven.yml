@@ -27,16 +27,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        env:
-          Id: ${{ vars.ID }}
-          Key: ${{ vars.KEY }}
-          Username: ${{ secrets.USERNAME }}
-          Password: ${{ secrets.PASSWORD }}
         run: mvn install -DskipTests
       - name: run tests
         env:
           Id: ${{ vars.ID }}
           Key: ${{ vars.KEY }}
-          Username: ${{ secrets.USERNAME }}
-          Password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
         run: mvn test
