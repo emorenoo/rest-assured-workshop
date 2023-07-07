@@ -32,7 +32,7 @@ jobs:
           Key: ${{ vars.KEY }}
           Username: ${{ secrets.USERNAME }}
           Password: ${{ secrets.PASSWORD }}
-        run: mvn -B package --file pom.xml
+        run: mvn install -DskipTests
       - name: run tests
         env:
           Id: ${{ vars.ID }}
