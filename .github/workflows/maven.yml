@@ -26,9 +26,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-      - name: Run a online script
-        run: env
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: run tests
+        env:
+          Id: ${{ vars.ID }}
+          Key: ${{ vars.KEY }}
+          Username: ${{ secrets.USERNAME }}
+          Password: ${{ secrets.PASSWORD }}
         run: mvn test
