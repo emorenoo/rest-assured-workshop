@@ -2,7 +2,10 @@ package com.restassured.exercise;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import io.restassured.RestAssured;
@@ -15,8 +18,8 @@ public class StudentsTests extends BaseClassAuth{
 	    
 		JSONObject request = new JSONObject();
 
-		request.put("name", "JaimeA");
-		request.put("lastname", "Perea");
+		request.put("name", "Carlos");
+		request.put("lastname", "Parra");
 		ArrayList<String> interests = new ArrayList<>();
 		interests.add("Boxing");
 		interests.add("Baseball");
@@ -24,41 +27,46 @@ public class StudentsTests extends BaseClassAuth{
 		request.put("interests", interests);
 		
 		urlBase();
+		Response response =
 		given()
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
 		.when()
-			.post("/classes/Students")
-		.then()
-			.statusCode(201)
-			.body("$", hasKey("objectId"))
-			.body("$", hasKey("createdAt"))
-		.log().all();
-		System.out.println(request.toJSONString());
+			.post("/classes/Students");
+		String jsonString = response.getBody().asString();
+		assertTrue(jsonString.contains("objectId"));
+		assertTrue(jsonString.contains("createdAt"));
+		String createdStudent = JsonPath.from(jsonString).getString("objectId");
+		System.out.println("New student created: "+request.toJSONString());
 
-		given()
-			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
-		.when()
-			.get("/classes/Students")
-		.then()
-			.body("results.name",hasItem("JaimeA"))
-			.body("results.lastname",hasItem("Perea"))
-		.log().all();
-	}	
-	
-	@Test
-	public void testStudentValidate() {
-
-		urlBase();
 		given()
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.get("/classes/Students")
 		.then()
 			.statusCode(200)
+			.body("results.name",hasItem("Carlos"))
+			.body("results.lastname",hasItem("Parra"))
 		.log().all();
+
+		given()
+			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
+		.when()
+			.delete("/classes/Students/"+ createdStudent);
 	}	
+	
+	@Test
+	public void testStudentValidate() {
+			urlBase();
+			given()
+				.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
+			.when()
+				.get("/classes/Students")
+			.then()
+				.statusCode(200)
+			.log().all();
+		}
 	
 	@Test
 	public void testValidateCreatedStudent() {

@@ -1,7 +1,8 @@
 package com.restassured.exercise;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
@@ -13,9 +14,10 @@ public class StudentsCommentsTests extends BaseClassAuth{
     public void testAddComments() {
 
         JSONObject request = new JSONObject();
+        String comment = "lo que sea";
 
-        request.put("studentId", "9mAYjrEAyo");
-		request.put("comment", "TestOneOneXER");
+        request.put("studentId", "KeDSWbW3KC");
+		request.put("comment", comment);
 
         urlBase();
         given()
@@ -36,7 +38,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         .when()
             .get("/classes/Comments")
         .then()
-            .body("results.comment", hasItem("TestOneOneXER"))
+            .body("results.comment", hasItem(comment))
         .log().all();
     }
 
@@ -55,12 +57,27 @@ public class StudentsCommentsTests extends BaseClassAuth{
 
     @Test
     public void testDeleteComments(){
+        JSONObject request = new JSONObject();
+        String comment = "tests delete";
+
+        request.put("studentId", "KeDSWbW3KC");
+        request.put("comment", comment);
 
         urlBase();
+        Response response =
+        given()
+            .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
+            .contentType(ContentType.JSON)
+            .body(request.toJSONString())
+        .when()
+            .post("/classes/Comments");
+        String jsonString = response.getBody().asString();
+        String idcomment = JsonPath.from(jsonString).getString("objectId");
+
         given()
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
-            .delete("/classes/Comments/7dMklmsKuP")
+            .delete("/classes/Comments/"+idcomment)
         .then()
             .statusCode(200)
         .log().all();
@@ -70,18 +87,19 @@ public class StudentsCommentsTests extends BaseClassAuth{
         .when()
             .get("/classes/Comments")
         .then()
-            .body("results.comment", not(hasItem("TestTwo")))
+            .body("results.comment", not(hasItem(comment)))
         .log().all();
     }
 
     @Test
     public void testAssociateComments(){
         JSONObject request = new JSONObject();
+        String comment = "lo que sea";
 
-        request.put("studentId", "9mAYjrEAyo");
-        request.put("comment", "TestOneYYyER");
+        request.put("studentId", "KeDSWbW3KC");
+        request.put("comment", comment);
 
-        RestAssured.baseURI = "https://parseapi.back4app.com";
+        urlBase();
         given()
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
             .contentType(ContentType.JSON)
@@ -96,10 +114,10 @@ public class StudentsCommentsTests extends BaseClassAuth{
         given()
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
-            .get("/classes/Students/9mAYjrEAyo")
+            .get("/classes/Students/KeDSWbW3KC")
         .then()
             .body("$", hasKey("comments"))
-            .body("comments", hasItem("TestOneYYyER"))
+            .body("comments", hasItem(comment))
         .log().all();
     }
 }

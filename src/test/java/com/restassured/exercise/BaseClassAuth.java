@@ -2,12 +2,8 @@ package com.restassured.exercise;
 
 import org.testng.annotations.BeforeClass;
 import io.restassured.RestAssured;
-
 import static io.restassured.RestAssured.given;
-
-import org.json.simple.JSONObject;
-//import org.testng.annotations.Test;
-
+import org.json.simple.JSONObject;;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
