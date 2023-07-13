@@ -12,11 +12,11 @@
 *.rar
 
 # Auto-generated
-
 test-output/
 target/
 .idea/
 .vscode/
+.DS_Store
 
 pom.xml.tag
 pom.xml.releaseBackup
