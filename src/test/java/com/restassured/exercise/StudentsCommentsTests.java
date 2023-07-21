@@ -1,5 +1,6 @@
 package com.restassured.exercise;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -20,7 +21,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
 		request.put("comment", comment);
 
         urlBase();
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
             .contentType(ContentType.JSON)
             .body(request.toJSONString())
@@ -33,7 +34,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         .log().all();
         System.out.println(request.toJSONString());
 
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
             .get("/classes/Comments")
@@ -46,7 +47,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
     public void testValidatedComments() {
 
         urlBase();
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
             .get("/classes/Comments")
@@ -65,7 +66,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
 
         urlBase();
         Response response =
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
             .contentType(ContentType.JSON)
             .body(request.toJSONString())
@@ -74,7 +75,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         String jsonString = response.getBody().asString();
         String idcomment = JsonPath.from(jsonString).getString("objectId");
 
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
             .delete("/classes/Comments/"+idcomment)
@@ -82,7 +83,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
             .statusCode(200)
         .log().all();
 
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
             .get("/classes/Comments")
@@ -100,7 +101,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         request.put("comment", comment);
 
         urlBase();
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
             .contentType(ContentType.JSON)
             .body(request.toJSONString())
@@ -111,7 +112,7 @@ public class StudentsCommentsTests extends BaseClassAuth{
         .log().all();
         System.out.println(request.toJSONString());
 
-        given()
+        given().filter(new AllureRestAssured())
             .headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
         .when()
             .get("/classes/Students/KeDSWbW3KC")

@@ -1,5 +1,6 @@
 package com.restassured.exercise;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -47,7 +48,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 		request.put("skillId", "MGH19YBd3i");
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -60,7 +61,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 		.log().all();
 		System.out.println(request.toJSONString());
 
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.get("/classes/Students/"+ studentId)
@@ -68,7 +69,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 			.body("$", hasKey("skillNames"))
 			.log().all();
 
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.delete("/classes/Students/"+ studentId);
@@ -78,7 +79,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 	public void testValidatedAbilities() {
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.get("/classes/Students/KeDSWbW3KC")
@@ -97,7 +98,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 		request.put("skillId", "PeydSdIjxx");
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -120,7 +121,7 @@ public class StudentsSkillsTests extends BaseClassAuth{
 		request.put("skillId", "uz891Ex1g6");
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())

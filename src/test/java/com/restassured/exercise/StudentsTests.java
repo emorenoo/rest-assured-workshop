@@ -4,6 +4,8 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.assertTrue;
 import java.util.ArrayList;
+
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
@@ -28,7 +30,7 @@ public class StudentsTests extends BaseClassAuth{
 		
 		urlBase();
 		Response response =
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -40,7 +42,7 @@ public class StudentsTests extends BaseClassAuth{
 		String createdStudent = JsonPath.from(jsonString).getString("objectId");
 		System.out.println("New student created: "+request.toJSONString());
 
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.get("/classes/Students")
@@ -50,7 +52,7 @@ public class StudentsTests extends BaseClassAuth{
 			.body("results.lastname",hasItem("Parra"))
 		.log().all();
 
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 		.when()
 			.delete("/classes/Students/"+ createdStudent);
@@ -58,13 +60,13 @@ public class StudentsTests extends BaseClassAuth{
 	
 	@Test
 	public void testStudentValidate() {
-			urlBase();
-			given()
-				.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
-			.when()
-				.get("/classes/Students")
-			.then()
-				.statusCode(200)
+		urlBase();
+		given().filter(new AllureRestAssured())
+			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
+		.when()
+			.get("/classes/Students")
+		.then()
+			.statusCode(200)
 			.log().all();
 		}
 	
@@ -82,7 +84,7 @@ public class StudentsTests extends BaseClassAuth{
 		request.put("interests", interests);
 		
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -109,7 +111,7 @@ public class StudentsTests extends BaseClassAuth{
 		request.put("interests", interests);
 		
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -136,7 +138,7 @@ public class StudentsTests extends BaseClassAuth{
 		request.put("interests", interests);
 
 		RestAssured.baseURI = "https://parseapi.back4app.com";
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"),"X-Parse-Session-Token",generatedToken())
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
@@ -163,7 +165,7 @@ public class StudentsTests extends BaseClassAuth{
 		request.put("interests", interests);
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 			.contentType(ContentType.JSON)
 			.body(request.toJSONString())
