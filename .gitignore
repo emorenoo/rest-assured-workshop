@@ -26,7 +26,6 @@ pom.xml.next
 .allure/
 allure-results/*.json
 allure-results/*.html
-
 #ajcore
 *.txt
 ajcore*
