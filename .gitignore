@@ -25,7 +25,7 @@ pom.xml.next
 #Local Allure files
 .allure/
 allure-results/*.json
-
+allure-results/*.html
 #ajcore
 *.txt
 ajcore*

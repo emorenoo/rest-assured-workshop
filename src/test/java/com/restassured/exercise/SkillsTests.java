@@ -1,8 +1,10 @@
 package com.restassured.exercise;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import io.qameta.allure.restassured.AllureRestAssured;
 import org.testng.annotations.Test;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 
 public class SkillsTests extends BaseClassAuth{
 
@@ -10,20 +12,21 @@ public class SkillsTests extends BaseClassAuth{
 	public void testListSkills() {
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 			.get("/classes/Skills")
 		.then()
 			.statusCode(200)
 			.body("size()", greaterThan(0))
 		.log().all();
+
 	}
 
 	@Test
 	public void testSkillCode() {
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 		.when()
 			.get("/classes/Skills/SfBT3mThiu")
@@ -39,7 +42,7 @@ public class SkillsTests extends BaseClassAuth{
 	public void testDeleteSkill() {
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 		.when()
 			.delete("/classes/Skills/SfBT3mThiu")
@@ -53,7 +56,7 @@ public class SkillsTests extends BaseClassAuth{
 	public void testListSkillsNo() {
 
 		urlBase();
-		given()
+		given().filter(new AllureRestAssured())
 			//.headers("X-Parse-Application-Id",System.getenv("Id"),"X-Parse-REST-API-Key",System.getenv("Key"))
 		.when()
 			.get("/classes/Skills")
