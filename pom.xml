@@ -41,7 +41,7 @@
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
     <!--latest testng supported on java 8-->
-    <version>7.7.0</version>
+    <version>7.5.1</version>
     <scope>test</scope>
 </dependency>
 <dependency>
